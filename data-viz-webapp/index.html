@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization Web App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 30px;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        .card-header {
+            font-weight: bold;
+        }
+        .btn-upload {
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome to Data Visualization Web App</h2>
+
+        <!-- File Upload Section -->
+        <div class="card">
+            <div class="card-header">
+                Upload Your Data
+            </div>
+            <div class="card-body">
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Choose a CSV file to upload</label>
+                        <input type="file" class="form-control" id="file" name="file" accept=".csv" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-upload">Upload File</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Display Uploaded Files -->
+        <div class="card">
+            <div class="card-header">
+                Uploaded Files
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for file in files %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ file }}
+                            <a href="{{ url_for('view_file', filename=file) }}" class="btn btn-info btn-sm">View Analysis</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Optional: Include JavaScript for interactivity (e.g., file preview) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
